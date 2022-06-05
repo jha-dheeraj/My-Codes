@@ -182,6 +182,21 @@ void findDuplicate(struct String string)
     }
     else if(choice==3)
     {
+        /* In above hashing method, we have used an array of length 26
+        i.e. completely waste of space(about 26*4 Byte). But we just need to store
+        26 value, that can be stored in 26 bit, or maximum of 1 BYTE.
+        So, here we will use that method only. */
+        int H = 0; /* Hash Byte, Int is used as, Int is of 4 Byte(32 BITS) */
+        int X,i;
+        for(i=0; string.string[i]!='\0';i++)
+        {
+            X=1; /*To make LSB 1 i.e 00000001 */
+            X=X<<(string.string[i]-97); /* It will move 1 to the index according to aphabet */
+            if(H&X) /* This is called Masking, to check if required bit is on or not */
+                printf("\n' %c ' character appeared multiple times in this string.",string.string[i]);
+            else
+                H=H | X; /* This is called Merging, i.e. making some bit ON */
+        }
 
     }
     else
