@@ -280,11 +280,6 @@ void RemoveDuplicateFromSortedList()
 
 }
 
-void RemoveDuplicateNode()
-{
-
-}
-
 void AppendNode()
 {
     struct Node *new,*p;
@@ -327,6 +322,34 @@ void ConcatTwoList()
     }
 }
 
+void RemoveDuplicateNode()
+{
+    struct Node *p,*q,*r;
+    p=q=Head;
+    r=NULL;
+    while(p!=NULL)
+    {
+        q=Head;
+        r=NULL;
+        while(q!=NULL)
+        {
+            if(p->data==q->data && p!=q)
+            {
+                r->next=q->next;
+                free(q);
+                q=r->next;
+            }else
+            {
+                r=q;
+                q=q->next;
+            }
+            
+            
+        }
+        p=p->next;
+    }
+}
+
 int main()
 {
     struct Node ll;
@@ -346,11 +369,12 @@ int main()
         printf("\nEnter 11 Delete at any position in the list.");
         printf("\nEnter 12 to check if list is sorted or not.");
         printf("\nEnter 13 to remove duplicate from sorted linked list.");
-        printf("\nEnter 14 reverse the list.");
+        printf("\nEnter 14 to remove duplicate from the list.");
         printf("\nEnter 15 to concat 2 linked list.");
         printf("\nEnter 16 to merge 2 linked list.");
         printf("\nEnter 17 to check loop in linked list.");
         printf("\nEnter 18 to append a node in linked list.");
+        printf("\nEnter 19 to reverse the linked list.");
         printf("\nEnter -1 to Exit.\n");
         scanf("%d",&choice);
         switch(choice)
