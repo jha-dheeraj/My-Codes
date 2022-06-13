@@ -9,6 +9,12 @@ struct Node
     int data;
     struct Node *next;
 };
+struct Array
+{
+    int *arr;
+    int length;
+    int size;
+};
 
 struct Node *Head = NULL;
 void CreateNode()
@@ -41,10 +47,10 @@ void CreateNode()
     }
 }
 
-void DisplayNodes()
+void DisplayNodes(struct Node *Headd)
 {
     struct Node *p;
-    p=Head;
+    p=Headd;
     if(p==NULL)
         printf("\nList is Empty.");
     else
@@ -68,7 +74,7 @@ void RecurssiveDisplay(struct Node *node)
         RecurssiveDisplay(node->next);
     }
 }
-void NodeCount()
+int NodeCount()
 {
     int count=0;
     struct Node *p=Head;
@@ -78,6 +84,7 @@ void NodeCount()
         p=p->next;
     }
     printf("\nNo. of Nodes=%d",count);
+    return count;
 
 }
 
@@ -183,7 +190,7 @@ void InsertAtAnyPosition()
         q->next=new;
     }
 }
-/* TODO: Insertion at begining */ 
+
 void InsertInSortedList()
 {
     struct Node *new,*p,*q;
@@ -350,6 +357,102 @@ void RemoveDuplicateNode()
     }
 }
 
+/* Recurssive call will deal later */
+void ReverseList()
+{
+    int choice;
+    printf("\nReverse can be done in 2 possible ways:\n");
+    printf("\nPress 1 to reverse list by reversing it's data.");
+    printf("\nPress 2 to reverse the list by reverssing the links.\n");
+    scanf("%d", &choice);
+    if(choice==1)
+    {
+        struct Array array1;
+        struct Node *p;
+        int i=0;
+        p=Head;
+        array1.size=NodeCount()+10;
+        array1.length=NodeCount();
+        array1.arr=(int *)malloc(array1.size*sizeof(int));
+        while(p)
+        {
+            array1.arr[i++]=p->data;
+            p=p->next;
+        }
+        p=Head;
+        i=array1.length-1;
+        while(p)
+        {
+            p->data=array1.arr[i--];
+            p=p->next;
+        }
+        free(array1.arr);
+    } else if(choice==2)
+    {
+        struct Node *p,*q,*r;
+        p=Head;
+        q=r=NULL;
+        while(p)
+        {
+            /*Order is very important*/
+            r=q;
+            q=p;
+            p=p->next;
+            q->next=r;
+        }
+        Head=q;
+    } else
+    {
+        printf("Invalid Choice.");
+    }
+}
+
+void CheckLoopinList()
+{
+    struct Node *p, *q;
+    p=q=Head;
+    q=q->next->next;
+    while(p!=NULL && q->next!=NULL)
+    {
+        if(p==q)
+            break;
+        p=p->next;
+        q=q->next->next;
+    }
+    if(p==q && p!=NULL)
+        printf("\nThere is loop in list.");
+    else
+        printf("\nThere is no loop in list");
+}
+
+void mergeList()
+{
+    int num;
+    struct Node *Head1,*p;
+    struct Node *node;
+    printf("\nEnter number of nodes you want to add in newly created list: ");
+    scanf("%d", &num);
+    node = (struct Node *)malloc(sizeof(struct Node));
+    Head1=p=node;
+    printf("\nEnter data for node: ");
+    scanf("%d", &node->data);
+    node->next=NULL;
+    while(--num)
+    {
+        node = (struct Node *)malloc(sizeof(struct Node));
+        printf("\nEnter data for node: ");
+        scanf("%d", &node->data);
+        node->next=NULL;
+        p->next=node;
+        p=p->next;
+    }
+    DisplayNodes(Head);
+    DisplayNodes(Head1);
+
+    /* TODO : Code for Merge */
+
+}
+
 int main()
 {
     struct Node ll;
@@ -386,7 +489,7 @@ int main()
                 CreateNode();
                 break;
             case 2:
-                DisplayNodes();
+                DisplayNodes(Head);
                 break;
             case 3:
                 RecurssiveDisplay(Head);
@@ -427,9 +530,18 @@ int main()
             case 15:
                 ConcatTwoList();
                 break;
+            case 16:
+                mergeList();
+                break;
+            case 17:
+                CheckLoopinList();
+                break;
             case 18:
                 AppendNode();
-                
+                break;
+            case 19:
+                ReverseList();
+                break;
             default:
                 printf("\nInvalid Input.\n");
                 break;
