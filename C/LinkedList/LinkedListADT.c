@@ -547,4 +547,17 @@ int main()
                 break;
         }
     }
+    if(Head)
+    {
+        printf("\nDone with Nodes, Freeing Heap allocated Memory.");
+        struct Node *p, *q;
+        p=Head;
+        q=NULL;
+        while(p!=NULL)
+        {
+            q=p;
+            p=p->next;
+            free(q);
+        }
+    }
 }
