@@ -142,7 +142,7 @@ int main()
 
     }
 
-    printf("\nDone with Stack Use, releasing memory now.\n");
+    printf("\nDone with Stack Use, releasing memory now.\n\n");
     free(st.s);
     
 
