@@ -36,7 +36,16 @@ class TwoSum
         vector<int> setValue(int c, int d, vector<int> nums);
         void getValue(vector<int> nums);
         vector<int> twoSum(vector<int> nums, int target);
+
+        friend ostream& operator<<(ostream& os, const TwoSum& obj);
 };
+
+ostream& operator<<(ostream& os, const TwoSum& obj)
+{
+    
+    os<<obj.a<<" "<< obj.b << "\n";
+    return os;
+}
 
 TwoSum::TwoSum()
 {
@@ -105,6 +114,7 @@ int main()
     vec=object1.setValue(5,6,vec);
     object1.getValue(vec);
     res=object1.twoSum(vec,3);
+    cout<<object1;
     for(int i=0; i<res.size();i++)
     {
         cout<< res[i] << " ";
