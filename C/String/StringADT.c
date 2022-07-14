@@ -19,7 +19,6 @@ void populateString(struct String *string1)
     Consume the newline character using another getchar(). */
     getchar();
     gets(string1->string);
-    string1->string[strlen(string1->string)]='\0';
 }
 
 void DisplayString(struct String string)
