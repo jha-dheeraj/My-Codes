@@ -23,8 +23,13 @@ class Sorting
         }
         void InsertionSort();
         void BubbleSort();
-        void QuickSort();
+        void QuickSort(int l, int h);
+        int Partition(int l, int h);
         void printVector();
+        int getVectorSize()
+        {
+            return vec.size();
+        }
 
 };
 
@@ -62,9 +67,40 @@ void Sorting::BubbleSort()
     }
 }
 
-void Sorting::QuickSort()
+int Sorting::Partition(int l, int h)
 {
+    int i,j,pivot,k,m;
+    k=i=l;
+    m=j=h;
+    pivot=vec[l];
 
+    do
+    {
+        do
+        { i++;}while(vec[i]<=pivot && i<=m);
+        do{ j--;}while(vec[j]>pivot && j>=k);
+        
+        if(i<j)
+        {
+            std::swap(vec.at(i), vec.at(j));
+        }
+    }while(i<j);
+
+    std::swap(vec.at(l),vec.at(j));
+
+    return j;
+}
+
+void Sorting::QuickSort(int l, int h)
+{
+    int j;
+    if(l<h)
+    {
+        j=Partition(l,h);
+        QuickSort(l,j);
+        QuickSort(j+1,h);
+
+    }
 }
 void Sorting::printVector()
 {
@@ -101,7 +137,11 @@ int main()
             obj1->printVector();
             break;
         case 3:
-            obj1->QuickSort();
+            std::cout<<"Before sorting, array is:"<<std::endl;
+            obj1->printVector();
+            obj1->QuickSort(0,obj1->getVectorSize()-1);
+            std::cout<<"After sorting, array is:"<<std::endl;
+            obj1->printVector();
             break;
         default:
             std::cout<<"\nInvalid Choice...!"<<std::endl;
